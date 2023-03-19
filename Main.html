@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop</title>
+
+    <link rel="shortcut icon" href="img/my-favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/leaflet.css" />
+
+    <style>
+
+    *{
+        margin: 0 auto;
+    }
+
+    *, ::after, ::before {
+    box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Oswald', sans-serif;
+        background-image: url(Media/images/hero.jpg);
+        background-repeat: no-repeat;
+        background-size: auto;
+    }
+
+    #map {
+        height: 480px;
+    }
+
+    /*HEADER*/
+    .header {
+        position: fixed;
+        width: 100%;
+        height: 8vh;
+        background-color: #413332;
+        color: aliceblue;
+        line-height: 8vh;
+        z-index: 1;
+    }
+
+    .solid-header {
+        position: fixed;
+        background-color: #c69572;
+        transition: background-color 0.5s ease;
+    }
+
+
+            .coffee-shop-header-title {
+                color: aliceblue;
+                position: relative;
+                left: 8%;
+                display: inline-block;
+            }
+
+                .coffee-shop-header-title:hover {
+                    color: rgb(238, 121, 25);
+                    cursor: pointer;
+                }
+
+            .nav1{
+                position: relative;
+                left: 25%;
+                display: inline-block;
+            }
+
+            .nav2 {
+                position: relative;
+                left: 55%;
+                display: inline-block;
+            }
+
+            .nav-link {
+                text-decoration: none;
+                color: aliceblue;
+                margin-left: 15px;
+            }
+
+                .nav-link:hover {
+                    color: rgb(238, 121, 25);
+                }
+
+        /*SEARCH BAR*/
+        .search-container{
+            width: 0em;
+            padding: 0%;
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            right: 22%;
+            bottom: 0.5em;
+            border-radius: 5em;
+        }
+
+        /*SEARCH BAR*/
+
+        .search-bar{
+            width: 20em;
+            max-width: 20em;
+
+            display: flex;
+            align-items: center;
+            border-radius: 5em;
+
+            margin: 0.2em 0.2em 0.2em 0;
+            padding: 0.1em 0.2em 0.2em 1.2em;
+
+            border: solid 2px #00c9e469;
+            color: #0099ff;
+            background-color: #0099ff47;
+        }
+
+        .search-bar input{
+            background: transparent;
+            flex: 1;
+            border: 0;
+            outline: none;
+            padding: 5px 20px;
+            color: #cac7ff;
+        }
+
+        ::placeholder{
+            color: #cac7ff;
+        }
+
+                        .search-bar:hover {
+                            margin: 0.2em 0.2em 0.2em 0;
+                            padding: 0.3em 0.2em 0.2em 1.2em;
+                            border: solid 2px #00c9e4;
+                            color: orangered;
+                            background-color: #00c9e4;
+                        }
+
+                        input[type="text"]:hover {
+                            border: solid 2px #00c9e4;
+                            background-color: #00c9e4;
+                            color: orangered;
+                        }
+
+                        input[type="text"]::selection {
+                            background-color: orangered;
+                            color: #fff;
+                        }
+
+
+        /* Search Icon */
+        .search-bar button img{
+            width: 20px;
+        }
+
+        /*Search Icon Button */
+        .search-bar button{
+            border: 0;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            background: #25506c;
+            cursor: pointer;
+            margin-right: 1em;
+        }
+
+                        .search-bar button:hover {
+                            border: 0;
+                            border-radius: 50%;
+                            width: 30px;
+                            height: 30px;
+                            background-color: orangered;
+                            cursor: pointer;
+                            margin-right: 1em;
+                        }
+
+
+    /*MAIN*/
+    .main {
+        width: 100%;
+        height: 100vh;
+        top: 8vh;
+        display: inline-grid;
+        position: relative;
+        background-color: #4133329c;
+        
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+            .h2-sec1{
+                position: relative;
+                display: inline-grid;
+                top: 0%;
+                align-content: center;
+                color: aliceblue;
+            }
+
+            .main-logo-img {
+                width: 50%;
+                position: relative;
+                margin-bottom: 3em;
+            }
+
+            .main-logo-text {
+                font-size: 3em;
+                margin-bottom: 15px;
+            }
+
+            .main-sub-logo-text {
+                font-size: 1em;
+                margin-bottom: 15%;
+            }
+
+            .main-anchor {
+                color: aliceblue;
+            }
+
+            .main-anchor:hover {
+                color: rgb(238, 121, 25);
+            }
+
+            .main-anchor-link {
+                position: relative;
+                top: 100%;
+            }
+
+
+    /* SECTION 2*/
+    .section-2 {
+        width: 100%;
+        height: 65vh;
+        top: 8vh;
+        background-color: #eae7de;
+        display: inline-grid;
+        position: relative;
+        color: #333;
+    }
+
+    .section-2-wrapper{
+        width: 65%;
+        height: 50vh;
+        background-color: #eae7de;
+        top: 5vh;
+        display: inline-grid;
+        position: relative;
+        color: #333;
+    }
+
+            .h2-sec2{
+                position: relative;
+                margin: 1em 3em 0 3em;
+                text-align: center;
+                font-weight: 700;
+                font-size: 2.5em;
+            }
+
+            .p-sec2{
+                position: relative;
+                margin: 0 3em 0 3em;
+                text-align: center;
+                color: #6c757d;
+            }
+
+            .box-container-sec2{
+                display: flex;
+                background-color: #eae7de;
+                width: 100%;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+
+            .box-sec2{
+                display: flex;
+                justify-content: space-around;
+                background-color: #eae7de;
+                text-align: center;
+            }
+
+            .text-container-sec2{
+                display: flex;
+                justify-content: space-around;
+                background-color: #eae7de;
+                width: 100%;
+                height: 35px;
+            }
+            
+            .text-box-sec2{
+                background-color: #eae7de;
+            }
+
+            .box2-sec2-a{
+                cursor: pointer;
+                text-decoration: none;
+                color: black;
+                font-size: larger;
+                font-weight: 700;
+            }
+
+                .box2-sec2-a:hover{
+                    cursor: pointer;
+                    text-decoration: none;
+                    color: orange;
+                }
+
+
+    /*SECTION 3*/
+    .section-3{
+        position: relative;
+        width: 100%;
+    }
+
+            .container-s3 {
+                width: 100%;
+                height: 50vh;
+                background-color: #fbfbfb;
+                display: inline-flex;
+                color: #333;
+            }
+
+            .box1-main-sec3 {
+                width: 60%;
+                height: 50vh;
+                background-color: #fff;
+                padding: 5% 10%;
+                position: relative;
+                display: inline-block;
+            }
+
+            .h2-sec3 {
+                color: black;
+                font-size: 2.5em;
+                margin-bottom: .5rem;
+                font-weight: 500;
+                line-height: 1.2;
+            }
+
+            .p-sec3 {
+                color: #6c757d!important;
+            }
+
+            .button-sec3 {
+                color: #fff;
+                background-color: #007bff;
+                border-color: #007bff;
+                border-radius: 3px;
+                width: 15vw;
+                height: 4vh;
+                margin-top: 25px;
+                cursor: pointer;
+            }
+
+            .button-sec3:hover{
+                color: #fff;
+                background-color: #0069d9;
+                border-color: #0062cc
+            }
+
+    /*SEC-3 ASIDE*/
+    .box2-main-sec3 {
+        width: 40%;
+        height: 50vh;
+        background-color: #fff;
+        padding: 5% 10%;
+        position: relative;
+        display: inline-block;
+
+        background-image: url(Media/images/great-place.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: right;
+    }
+
+
+    /*SECTION 4*/
+    .section-4{
+        position: relative;
+        width: 100%;
+        height: 65vh;
+    }
+
+            .container-s4 {
+                width: 100%;
+                height: 65vh;
+                background-color: #111;
+                display: inline-flex;
+                color: #333;
+            }
+
+            .box1-main-sec4 {
+                width: 60%;
+                height: 65vh;
+                background-color: #333;
+                padding: 5% 10%;
+                position: relative;
+                display: inline-block;
+                background-image: url(Media/images/fresh-beans.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: left;
+                left: 10%;
+            }
+
+            .h2-sec4 {
+                color: #fff;
+                font-size: 2.5rem;
+                margin-bottom: .5rem;
+                font-weight: 500;
+                line-height: 1.2;
+            }
+
+            .p-sec4 {
+                color: #6c757d!important;
+            }
+
+            .button-sec4 {
+                color: #fff;
+                background-color: #007bff;
+                border-color: #007bff;
+                border-radius: 3px;
+                width: 15vw;
+                height: 4vh;
+                margin-top: 25px;
+                cursor: pointer;
+            }
+
+            .button-sec4:hover{
+                color: #fff;
+                background-color: #0069d9;
+                border-color: #0062cc
+            }
+
+
+        /*SEC-3 ASIDE*/
+        .box2-main-sec4 {
+            width: 40%;
+            height: 65vh;
+            background-color: #111;
+            padding: 10% 0 0 5%;
+            position: relative;
+            display: inline-block;
+            right: 3%;
+        }
+
+    /*SECTION 5*/
+    .section-5 {
+        position: relative;
+        width: auto;
+        padding: 5% 15% 15% 15%;
+        background-color: #eae7de;
+        height: 190vh;
+    }
+
+    .section-5-wrapper {
+        width: auto;
+        height: 50vh;
+        background-color: #eae7de;
+        top: 5vh;
+        display: inline-grid;
+        position: relative;
+        color: #333;
+    }
+
+        .h2-sec5 {
+            position: relative;
+            margin: 0 3em 0 3em;
+            text-align: center;
+            font-weight: 700;
+            font-size: 2.5em;
+        }
+
+        .p-sec5 {
+            position: relative;
+            margin: 3em 3em 0 3em;
+            text-align: center;
+            color: #6c757d;
+        }
+
+        .box-container-sec5 {
+            display: flex;
+            justify-content: space-around;
+            background-color: #eae7de;
+            width: 100%;
+            padding-top: 10vh;
+        }
+        
+            .box-sec5 {
+                width: 100%;
+                text-align: center;
+                background-color: #eae7de;
+                margin: 1%;
+                border: 2px solid #eae7de;
+            }
+
+        .text-container-sec5 {
+            display: flex;
+            justify-content: space-around;
+            background-color: #eae7de;
+            width: 100%;
+            height: 5vw;
+            padding: 15px 0 0 0;
+            text-align: center;
+            gap: 5%;
+        }
+        
+            .text-box-sec5 {
+                display: flex;
+                justify-content: space-around;
+                background-color: #eae7de;
+                height: 15px;
+                color: #333;
+                font-size: 1.5em;
+                font-weight: 700;
+                }
+
+        .text-box-sec5-txt{
+            font-size: 1em;
+        }
+
+        .text-box-sec5-price{
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+            .text-box-sec5:hover {
+                color: orange;
+                cursor: pointer;
+            }
+
+
+    /*SECTION 6*/
+    .section-6 {
+        width: 100%;
+        height: 50vh;
+    }
+
+        .background-leyer-s6 {
+            width: 100%;
+            height: 50vh;
+            background-color: #7876745e;
+            color: white;
+
+            background: linear-gradient(to right, #36313782, #36313782), url(Media/images/contact-img.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: left;
+        }
+
+        .box1-main-sec6 {
+            position: relative;
+            width: 50%;
+            display: inline-block;
+            height: 100%;
+        }
+
+        .sec6a-content {
+            display: inline-block;
+            margin-left: 20%;
+            margin-top: 12%;
+            position: relative;
+        }
+
+        .box2-main-sec6 {
+            position: relative;
+            height: 50vh;
+            display: inline-block;
+            width: 49vw;
+            vertical-align: top;
+            background-color: #272828b0;
+            bottom: 0vh;
+            left: 0vw;
+        }
+
+        .sec6b-content {
+            display: inline-block;
+            margin-left: 20%;
+            margin-top: 10%;
+            position: relative;
+        }
+
+    /*SECTION 7*/
+    .section-7 {
+        text-align: center;
+        margin: 0em;
+        background-image: url(Media/Backgrounds/jeremy-perkins-uhjiu8FjnsQ-unsplash.jpg);
+        background-repeat: repeat-y;
+        background-size: cover;
+        padding: 1em;
+    }
+
+            #map {
+                height: 580px;
+            }
+
+            .map-controls {
+                background-color: #312423b0;
+                width: auto;
+                height: 5vh;
+                line-height: 5vh;
+            }
+
+            .map-button {
+                background-color: #70625e;
+                color: white;
+            }
+
+            .map-button:hover {
+                background-color: #c69572;
+                cursor: pointer;
+            }
+
+
+    /*FOOTER */
+    .footer {
+        background: #312423;
+        color: #f8f9fa;
+    }
+
+            .row-footer {
+                display: flex;
+            }
+
+            .text-footer {
+                line-height: 8vh;
+            }
+
+            .icons-section {
+                display: inline-flex;
+            }
+
+            .icons-footer {
+                margin: 0.5em;
+            }
+
+            .icon-image-footer:hover {
+                background-color: #c69572;
+            }
+
+    </style>
+
+
+</head>
+
+<body>
+
+<header class="header">
+
+        <h1 class="coffee-shop-header-title">COFFEE SHOP</h1>
+
+        <nav class="nav1">
+            <dev class="search-container">
+                <form action="https://www.google.com/search" method="GET" class="search-bar">
+                    <input type="text" placeholder="Search: " name="q">
+                    <button type="submit"><img src="Media/Fav-Icons/search.png" alt="ikona pretrage"></button>
+                </form>
+            </dev>
+        </nav>
+
+        <nav class="nav2">
+            <a class="nav-link" href="/">ABOUT</a>
+            <a class="nav-link" href="/">PRODUCTS</a>
+            <a class="nav-link" href="/">CONTACT</a>
+            <a class="nav-link" href="/">HOW TO FIND US?</a>
+        </nav>
+
+</header>
+
+<section class="main">
+
+    <div class="h2-sec1">
+    <img class="main-logo-img" src="Media/images/logo.png" alt="main-logo">
+    <p class="main-logo-text">THE HOME OF COFFEE</p>
+    <p class="main-sub-logo-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum a leo id lacus gravida semper at eu lacus.</p>
+
+    <a class="main-anchor-link" href="#anchor-section"><img class="main-anchor" src="Media/images/arrow-down.png" alt="main-anchor"></a>
+    
+    </div>
+
+</section>
+
+
+<section class="section-2" id="anchor-section">
+
+    <section class="section-2-wrapper">
+
+    <h2 class="h2-sec2">THE BEST COFFEE SHOP</h2>
+    <p class="p-sec2">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+    eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae.</p>
+
+    <section class="box-container-sec2">
+        <div class="box-sec2"><img src="Media/images/icon-1.png" alt="icon1"></div>
+        <div class="box-sec2"><img src="Media/images/icon-2.png" alt="icon2"></div>
+        <div class="box-sec2"><img src="Media/images/icon-3.png" alt="icon3"></div>
+    </section>
+    <section class="text-container-sec2">
+        <div class="text-box-sec2"><a class="box2-sec2-a" href="https://www.moddb.com/games/men-of-war-assault-squad-2">BEST BEANS</a></div>
+        <div class="text-box-sec2"><a class="box2-sec2-a" href="https://stellaris.smods.ru/">QUALITY MILK</a></div>
+        <div class="text-box-sec2"><a class="box2-sec2-a" href="https://top-mods.com/mods/hoi-4">PERFECT BLEND</a></div>
+    </section>
+
+    </section>
+
+</section>
+
+
+<section class="section-3">
+
+    <div class="container-s3">
+    <section class="box1-main-sec3">
+        <h2 class="h2-sec3">GREAT PLACE</h2>
+        <p class="p-sec3">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+            eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+        <button class="button-sec3" type="submit">FIND OUT MORE</button>
+
+    </section><aside class="box2-main-sec3">
+
+    </aside>
+    </div>
+
+</section>
+
+
+<section class="section-4">
+
+    <div class="container-s4">
+        <section class="box1-main-sec4">
+
+        </section>
+        <aside class="box2-main-sec4">
+            <h2 class="h2-sec4">FRESH BEANS</h2>
+            <p class="p-sec4">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+                eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            <button class="button-sec4" type="submit">FIND OUT MORE</button>
+        </aside>
+    </div>
+
+</section>
+
+
+<section class="section-5">
+
+    <section class="section-5-wrapper">
+            <h2 class="h2-sec5">SELECTION FROM OUR MENU</h2>
+            <p class="p-sec5">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+                eaque ipsa quae ab illo.
+            </p>
+
+    <section class="box-container-sec5">
+        <div class="box-sec5"><img src="Media/images/coffee-item-1.png" alt=""></div>
+        <div class="box-sec5"><img src="Media/images/coffee-item-2.png" alt=""></div>
+        <div class="box-sec5"><img src="Media/images/coffee-item-3.png" alt=""></div>
+    </section>
+    <section class="text-container-sec5">
+        <div class="text-box-sec5">BLACK CAKE</div>
+        <div class="text-box-sec5">BLACK COFFEE</div>
+        <div class="text-box-sec5">ESPRESSO</div>
+    </section>
+    <section class="text-container-sec5">
+        <div class="text-box-sec5-txt">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</div>
+        <div class="text-box-sec5-txt">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</div>
+        <div class="text-box-sec5-txt">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</div>
+    </section>
+    <section class="text-container-sec5">
+        <div class="text-box-sec5-price">4€</div>
+        <div class="text-box-sec5-price">6€</div>
+        <div class="text-box-sec5-price">6€</div>
+    </section>
+
+
+    <section class="box-container-sec5">
+        <div class="box-sec5"><img src="Media/images/coffee-item-4.png" alt=""></div>
+        <div class="box-sec5"><img src="Media/images/coffee-item-5.png" alt=""></div>
+        <div class="box-sec5"><img src="Media/images/coffee-item-6.png" alt=""></div>
+    </section>
+        <section class="text-container-sec5">
+            <div class="text-box-sec5">LATTE</div>
+            <div class="text-box-sec5">MACARONS</div>
+            <div class="text-box-sec5">MACCHIATO</div>
+        </section>
+        <section class="text-container-sec5">
+            <div class="text-box-sec5-txt">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                laudantium.</div>
+            <div class="text-box-sec5-txt">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                laudantium.</div>
+            <div class="text-box-sec5-txt">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                laudantium.</div>
+        </section>
+        <section class="text-container-sec5">
+            <div class="text-box-sec5-price">6€</div>
+            <div class="text-box-sec5-price">3€</div>
+            <div class="text-box-sec5-price">6€</div>
+        </section>
+
+    </section>
+
+</section>
+
+<section class="section-6">
+
+    <div class="background-leyer-s6">
+
+    <section class="box1-main-sec6">
+
+        <div class="sec6a-content">
+            <h2>YOU ARE WELCOME!</h2>
+            <p>COME ON IN!</p>
+            <br>
+            <h4>WEEKDAYS</h4>
+            <p>08PM -12AM</p>
+            <br>
+            <h4>WEEKENDS</h4>
+            <p>12 PM – 02 AM</p>
+        </div>
+
+    </section>
+
+    <section class="box2-main-sec6">
+
+    <div class="sec6b-content">
+        <h2>CONTACT</h2>
+        <br>
+        <h4>PHONE</h4>
+        <p>+(000) 111 222 333</p>
+        <br>
+        <h4>MAIL</h4>
+        <p>address@domain.com</p>
+        <br>
+        <h4>ADDRESS</h4>
+        <p>543 TN, doula street NY, New York</p>
+    </div>
+
+    </section>
+
+    </div>
+
+</section>
+
+<section class="section-7">
+
+    <div id="map"></div>
+    
+    <!--Map Controls-->
+    <div class="map-controls">
+        <button class="map-button" id="zoom">Set zoom to 5</button>
+        <button class="map-button" id="zoom-in">Zoom in</button>
+        <button class="map-button" id="zoom-out">Zoom out</button>
+        <button class="map-button" id="pan">Show </button>
+        <button class="map-button" id="set-view">Show Athens with zoom level 13</button>
+        <button class="map-button" id="fly">Fly to Athens</button>
+    </div>
+
+</section> 
+
+<footer class="footer">
+    <div class="container-footer">
+        <div class="row-footer">
+            <div class="text-footer">
+                Coffee Shop | Ⓒ MyUpork Example.
+            </div>
+            <div class="icons-section">
+                <a class="icons-footer" href="#"><img class="icon-image-footer" src="Media/Fav-Icons/facebook-icon.png" alt="facebook icon"></a>
+                <a class="icons-footer" href="#"><img class="icon-image-footer" src="Media/Fav-Icons/instagram-icon.png" alt="instagram icon"></a>
+                <a class="icons-footer" href="#"><img class="icon-image-footer" src="Media/Fav-Icons/phone-icon.png" alt="twitter icon"></a>
+                <a class="icons-footer" href="#"><img class="icon-image-footer" src="Media/Fav-Icons/twitter-icon.png" alt="phone icon"></a>
+            </div>
+        </div>
+    </div>
+</footer> 
+    
+<!--GOOGLE MAP LINK:-->
+<script src="js/leaflet.js"></script>
+
+<!--GOOGLE MAP SCRIPT:-->
+<script>
+
+    var myMap = L.map('map', {
+        center: [37.974, 23.72],
+        zoom: 13,
+        });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(myMap);
+
+
+    /* VECTOR LINES: */
+    var latLngs = [
+        [38.00729, 23.73508],
+        [37.99992, 23.73328],
+        [38.00084, 23.72757],
+        [37.98917, 23.72671]
+    ];
+
+    var polyline = L.polyline(latLngs, { color: 'red' }).addTo(myMap); // PATHWAY
+
+    //POLYGON:
+    var latlngs = [
+        [37.99528, 23.73347],
+        [37.99174, 23.73250],
+        [37.99105, 23.73689],
+        [37.99162, 23.73910],
+        [37.99274, 23.74071],
+        [37.99411, 23.74101],
+        [37.99573, 23.74035],
+        [37.99489, 23.73612]
+    ];
+
+    var polygon = L.polygon(latlngs, { color: 'red' }).addTo(myMap);
+
+    myMap.fitBounds(polygon.getBounds());
+    //Polygon boundaries.
+
+
+    polygon.bindPopup("<b>Hello world!</b><br>I am a polygon.");
+    //Onclick Event.
+
+    marker.bindTooltip("Hello. I am tooltip!");
+    //Tooltip Marker.
+
+
+    /* Automatic Event control: */
+    //      var marker = L.marker([37.974, 23.72]).addTo(myMap); // Marker Creator.
+
+    marker.on('click', function () {
+        alert("You have clicked on marker!");
+    });
+
+
+    /* SUBSCRIPTION ON COMPLETE MAP EVENT*/
+    myMap.on('click', function (ev) {
+        alert("Coordinates of clicked point is: " + ev.latlng.lat + ", " + ev.latlng.lng); /*Geographis Width & Hights (coordinates guide)*/
+    });
+
+    /*Dinamic Map View Controls: */
+    var myMap = L.map('map', {
+        center: [37.974, 23.72],
+        zoom: 13
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(myMap);
+
+    let buttons = document.getElementsByTagName("button"); // All body buttons selection.
+
+    //Iteration for buttons:
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function () {
+
+            let id = this.id;
+
+            switch (id) {
+                case "zoom":
+                    myMap.setZoom(5);
+                    break;
+                case "zoom-in":
+                    myMap.zoomIn(1);
+                    break;
+                case "zoom-out":
+                    myMap.zoomOut(1);
+                    break;
+                case "pan":
+                    myMap.panTo([44.82556, 20.45112]);
+                    break;
+                case "set-view":
+                    myMap.setView([35.69033, 139.77343], 13);
+                    break;
+                case "fly":
+                    myMap.flyTo([37.95232, 23.72346], 15);
+                    break;
+
+            }
+
+        });
+    }
+
+</script>
+
+</body>
+
+</html>
